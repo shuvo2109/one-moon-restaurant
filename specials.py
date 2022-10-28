@@ -1,24 +1,33 @@
 # Demonstration of processing inputs and outputs
 # Demonstration of using loops to repeat code
 # Demonstration of using dictionaries to pair keys with values
+
+from one_moon_restaurant.classes import items
+from one_moon_restaurant.classes.items import MenuItem
 from functions.input_handler import refine_input
+
+
+def menu_item_to_special(menu_item: MenuItem) -> str:
+    return menu_item.title + '\n' + menu_item.short_desc
 
 
 def get_specials():
     # Defining the specials in each day
-    sunday = {'B': 'Universal Peace\nIngredients: Berry, Carrot, Lotus Head, Rice',
-              'L': 'Squirrel Fish\nIngredients: Fish, Flour, Sugar, Tomato',
-              'D': 'Come and Get It\nIngredients: Fish, Raw Meat, Rice, Tofu'}
-    monday = {'B': 'Crystal Shrimp\nIngredients: Carrot, Rice, Shrimp Meat',
-              'L': 'Triple-Layered Consomme\nIngredients: Bamboo Shoot, Fowl, Ham',
-              'D': 'Black-Back Perch Stew\nIngredients: Fish, Jueyun Chili, Salt'}
+    weekend_menu = {'b': menu_item_to_special(menu_item=items.universal_peace),
+                    'l': menu_item_to_special(menu_item=items.squirrel_fish),
+                    'd': menu_item_to_special(menu_item=items.come_and_get_it)}
 
-    # Saturday has the same specials. Mon - Fri has same specials.
-    tuesday = monday
-    wednesday = monday
-    thursday = monday
-    friday = monday
-    saturday = sunday
+    workday_menu = {'b': menu_item_to_special(menu_item=items.crystal_shrimp),
+                    'l': menu_item_to_special(menu_item=items.triple_layered_consomme),
+                    'd': menu_item_to_special(menu_item=items.black_back_perch_stew)}
+
+    saturday = weekend_menu
+    sunday = weekend_menu
+    monday = workday_menu
+    tuesday = workday_menu
+    wednesday = workday_menu
+    thursday = workday_menu
+    friday = workday_menu
 
     # Defining the days in special's dictionary
     specials = {'sun': sunday,
@@ -32,7 +41,7 @@ def get_specials():
     return specials
 
 
-def print_special(special):
+def print_special(special: dict):
     print("\nThe special is: {}".format(special))
     print("*"*15)
 
@@ -44,8 +53,8 @@ def get_day():
 
 
 def get_time():
-    dine_times = ['B', 'L', 'D']
-    time = refine_input(prompt="\nEnter the mealtime\n['B' for breakfast, 'L' for lunch, 'D' for dinner]: ", type_=str, range_=dine_times)
+    dine_times = ['b', 'l', 'd']
+    time = refine_input(prompt="\nEnter the mealtime\n['b' for breakfast, 'l' for lunch, 'd' for dinner]: ", type_=str, range_=dine_times)
     return time
 
 

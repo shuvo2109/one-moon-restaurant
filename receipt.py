@@ -5,14 +5,14 @@
 from datetime import datetime
 
 
-def get_seat_total(seat):
+def get_seat_total(seat: list) -> float:
     total = 0
     for item in seat:
         total = total + item
     return total
 
 
-def print_seat(seat):
+def print_seat(seat: list):
     for i in range(0, len(seat)):
         item = seat[i]
         print("Item {}: ${}".format(i+1, round(item, 2)))

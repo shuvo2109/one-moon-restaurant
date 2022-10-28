@@ -1,5 +1,9 @@
 # Demonstration of making classes
 
+from one_moon_restaurant.classes import recipes
+from one_moon_restaurant.classes.recipes import Recipe
+
+
 # Defining the menu item class
 class MenuItem(object):
     # Setting up the menu item
@@ -55,7 +59,7 @@ class Menu(object):
 # Creating a catering class
 class CateringItem(MenuItem):
     # CateringItem inheriting from MenuItem because too similar to separate, too different to rewrite
-    def __init__(self, title, cost, number_serves, instructions='', long_desc='', short_desc='', item_type='main'):
+    def __init__(self, title, cost, number_serves, instructions='', long_desc='', short_desc='', item_type='catering'):
         super(MenuItem, self).__init__()
         self.title = title
         self.cost = cost
@@ -76,45 +80,43 @@ class CateringItem(MenuItem):
             print("Special Instruction: {instruction}".format(instruction=self.instructions))
 
 
+def recipe_to_menu_item(recipe: Recipe, cost: int) -> MenuItem:
+    menu_item = MenuItem(title=recipe.title,
+                         cost=cost)
+    short_desc = 'Ingredients: ' + ', '.join(str(x) for x in recipe.ingredients)
+    long_desc = short_desc + '\n' + recipe.notes
+    menu_item.change_description(long_desc=long_desc, short_desc=short_desc)
+    return menu_item
+
+
 # Defining the available items as classes
-universal_peace = MenuItem(title="Universal Peace",
-                           cost=5000,
-                           short_desc='Ingredients: Berry, Carrot, Lotus Head, Rice')
-squirrel_fish = MenuItem(title="Squirrel Fish",
-                         cost=5000,
-                         short_desc='Ingredients: Fish, Flour, Sugar, Tomato')
-come_and_get_it = MenuItem(title="Come and Get It",
-                           cost=5000,
-                           short_desc='Ingredients: Fish, Raw Meat, Rice, Tofu')
-crystal_shrimp = MenuItem(title='Crystal Shrimp',
-                          cost=4500,
-                          short_desc='Ingredients: Carrot, Rice, Shrimp Meat')
-triple_layered_consomme = MenuItem(title='Triple-Layered Consomme',
-                                   cost=4500,
-                                   short_desc='Ingredients: Bamboo Shoot, Fowl, Ham')
-black_back_perch_stew = MenuItem(title='Black-Back Perch Stew',
-                                 cost=4500,
-                                 short_desc='Ingredients: Fish, Jueyun Chili, Salt')
+black_back_perch_stew = recipe_to_menu_item(recipe=recipes.black_back_perch_stew, cost=4500)
+come_and_get_it = recipe_to_menu_item(recipe=recipes.come_and_get_it, cost=5000)
+crystal_shrimp = recipe_to_menu_item(recipe=recipes.crystal_shrimp, cost=4500)
+squirrel_fish = recipe_to_menu_item(recipe=recipes.squirrel_fish, cost=5000)
+triple_layered_consomme = recipe_to_menu_item(recipe=recipes.triple_layered_consomme, cost=4500)
+universal_peace = recipe_to_menu_item(recipe=recipes.universal_peace, cost=5000)
 
-# Correct way to define a subclass
-universal_peace_2 = CateringItem(title=universal_peace.title,
-                                 cost=universal_peace.cost,
-                                 number_serves=4,
-                                 instructions='Chef Ganyu\'s special: Prosperous Peace',
-                                 long_desc=universal_peace.long_desc,
-                                 short_desc=universal_peace.short_desc,
-                                 item_type=universal_peace.item_type)
 
-# Incorrect way to define a subclass
-squirrel_fish_2 = CateringItem(squirrel_fish, cost=squirrel_fish.cost, number_serves=4)
-
+# Example of a Catering class
+universal_peace_catering = CateringItem(title=universal_peace.title,
+                                        cost=universal_peace.cost,
+                                        number_serves=4,
+                                        instructions='Chef Ganyu\'s special: Prosperous Peace',
+                                        long_desc=universal_peace.long_desc,
+                                        short_desc=universal_peace.short_desc,
+                                        item_type=universal_peace.item_type)
 
 # Setting up the menu
-sunday_menu = Menu(breakfast=[universal_peace, crystal_shrimp],
-                   lunch=[squirrel_fish, triple_layered_consomme],
-                   dinner=[come_and_get_it, black_back_perch_stew])
+weekend_menu = Menu(breakfast=[universal_peace],
+                    lunch=[squirrel_fish],
+                    dinner=[come_and_get_it])
+
+workday_menu = Menu(breakfast=[crystal_shrimp],
+                    lunch=[triple_layered_consomme],
+                    dinner=[black_back_perch_stew])
 
 # Printing the menu to scrutinize everything
-sunday_menu.print_menu()
-# universal_peace_2.print_item()
-# squirrel_fish_2.print_item()
+# workday_menu.print_menu()
+# come_and_get_it.print_item(desc_type='long')
+# universal_peace.print_item(desc_type='short')
