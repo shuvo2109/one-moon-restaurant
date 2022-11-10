@@ -1,5 +1,6 @@
-# Used for cleaning input provided by the user
 def refine_input(prompt='', type_=None, min_=None, max_=None, range_=None):
+    """ Used for cleaning input provided by the user
+    """
     str_not_valid_input = "That is not a valid input. "
     while True:
         if min_ is not None and max_ is not None and max_ < min_:

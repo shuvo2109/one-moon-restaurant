@@ -1,10 +1,17 @@
 # Demonstration of splitting up a program
 
-from one_moon_restaurant.classes import ingredients
+from classes import ingredients
 
 
 class Recipe(object):
+    """ Class for a Recipe
+    """
     def __init__(self, title, ingredients=[], notes=''):
+        """ Sets up a Recipe
+            Title and notes have to be string.
+            Ingredients has to be a list.
+            Title is mandatory.
+        """
         self.title = title
         self.ingredients = ingredients
         self.notes = notes
@@ -13,6 +20,8 @@ class Recipe(object):
         return self.title
 
     def print_recipe(self):
+        """ Prints the recipe
+        """
         print(self.title)
         print("Ingredients:")
         for item in self.ingredients:

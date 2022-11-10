@@ -6,6 +6,9 @@ from datetime import datetime
 
 
 def get_seat_total(seat: list) -> float:
+    """ Calculates the total bill for a seat.
+        Input has to be a List with the cost of each item consumed as elements of the List.
+    """
     total = 0
     for item in seat:
         total = total + item
@@ -13,6 +16,9 @@ def get_seat_total(seat: list) -> float:
 
 
 def print_seat(seat: list):
+    """ Prints the total bill for a seat, item by item and sum.
+        Input has to be a List with the cost of each item consumed as elements of the List.
+    """
     for i in range(0, len(seat)):
         item = seat[i]
         print("Item {}: ${}".format(i+1, round(item, 2)))

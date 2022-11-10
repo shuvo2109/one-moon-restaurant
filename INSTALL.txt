@@ -1,0 +1,11 @@
+# One Moon Restaurant (INSTALL)
+
+## Libraries and Modules
+The following Python modules are needed for the execution of repository files:
+- datetime for receipt.py
+
+All the other libraries and modules are included in the repository.
+
+## Installation and Usage
+No installation is required.
+Run the required scripts in your IDLE or cmd window.

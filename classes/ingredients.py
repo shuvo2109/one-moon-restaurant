@@ -1,11 +1,20 @@
 # Demonstration of splitting up a program
 
 class Ingredient(object):
+    """ Class for ingredients, used in defining inventory and recipes.
+    """
     def __init__(self, title, description=''):
+        """ Sets up an Ingredient.
+            Requires a title and a description.
+            Both has to be strings.
+            Title is mandatory but description is optional.
+        """
         self.title = title
         self.description = description
 
     def __str__(self):
+        """ Returns the title of the Ingredient.
+        """
         return self.title
 
 

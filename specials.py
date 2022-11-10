@@ -2,12 +2,14 @@
 # Demonstration of using loops to repeat code
 # Demonstration of using dictionaries to pair keys with values
 
-from one_moon_restaurant.classes import items
-from one_moon_restaurant.classes.items import MenuItem
+from classes import items
+from classes.items import MenuItem
 from functions.input_handler import refine_input
 
 
 def menu_item_to_special(menu_item: MenuItem) -> str:
+    """ Converts a MenuItem class to a string containing the dish's title and short description.
+    """
     return menu_item.title + '\n' + menu_item.short_desc
 
 

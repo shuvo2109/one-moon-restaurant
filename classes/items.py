@@ -1,13 +1,20 @@
 # Demonstration of making classes
 
-from one_moon_restaurant.classes import recipes
-from one_moon_restaurant.classes.recipes import Recipe
+from classes import recipes
+from classes.recipes import Recipe
 
 
 # Defining the menu item class
 class MenuItem(object):
+    """ Class for the items on the menu
+    """
     # Setting up the menu item
     def __init__(self, title, cost, long_desc='', short_desc='', item_type='main'):
+        """ Sets up a MenuItem.
+            Title, long_desc, short_desc and item_type must be strings.
+            Cost must be float.
+            Title and cost are mandatory.
+        """
         self.title = title
         self.cost = cost
         self.long_desc = long_desc
@@ -15,21 +22,34 @@ class MenuItem(object):
         self.item_type = item_type
 
     def change_title(self, title):
+        """ Changes the title of the MenuItem.
+        """
         self.title = title
 
     def change_cost(self, cost):
+        """ Changes the cost of the MenuItem.
+        """
         self.cost = cost
 
     def change_description(self, long_desc='', short_desc=''):
+        """ Changes the description of the MenuItem.
+            Can change both types of description at the same time.
+        """
         if long_desc:
             self.long_desc = long_desc
         if short_desc:
             self.short_desc = short_desc
 
     def change_item_type(self, item_type):
+        """ Changes the type of MenuItem.
+        """
         self.item_type = item_type
 
     def print_item(self, desc_type='short'):
+        """ Prints the title, cost and description of a MenuItem.
+            Prints short description by default.
+            Long description has to be specified if needed.
+        """
         print("{title} ... ${cost}".format(title=self.title, cost=self.cost))
         if desc_type == 'short':
             print(self.short_desc)
@@ -39,12 +59,19 @@ class MenuItem(object):
 
 # Class menu should encompass all menu items
 class Menu(object):
+    """ Class for the Menu.
+    """
     def __init__(self, breakfast, lunch, dinner):
+        """ Sets up a Menu.
+            Inputs must be list of items for each of the times of day.
+        """
         self.breakfast = breakfast
         self.lunch = lunch
         self.dinner = dinner
 
     def print_menu(self):
+        """ Prints the Menu.
+        """
         print("\nBreakfast:")
         for item in self.breakfast:
             item.print_item()
@@ -58,7 +85,8 @@ class Menu(object):
 
 # Creating a catering class
 class CateringItem(MenuItem):
-    # CateringItem inheriting from MenuItem because too similar to separate, too different to rewrite
+    """ CateringItem inheriting from MenuItem because too similar to separate, too different to rewrite
+    """
     def __init__(self, title, cost, number_serves, instructions='', long_desc='', short_desc='', item_type='catering'):
         super(MenuItem, self).__init__()
         self.title = title
@@ -81,6 +109,9 @@ class CateringItem(MenuItem):
 
 
 def recipe_to_menu_item(recipe: Recipe, cost: int) -> MenuItem:
+    """ Function to convert a Recipe class into a MenuItem class
+        cost must be int.
+    """
     menu_item = MenuItem(title=recipe.title,
                          cost=cost)
     short_desc = 'Ingredients: ' + ', '.join(str(x) for x in recipe.ingredients)
