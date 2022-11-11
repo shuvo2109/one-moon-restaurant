@@ -1,0 +1,4 @@
+Crab	3
+Ham	4
+Matsutake	3
+Shrimp Meat	3

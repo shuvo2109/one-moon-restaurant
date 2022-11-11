@@ -1,40 +1,51 @@
 # Demonstration of splitting up a program
+# Demonstration of working with program files
 
 from classes import ingredients
+from classes.ingredients import Ingredient
 
 
 class Inventory(object):
     """ Class for Inventory.
         A Dictionary with item names as key and quantity as values.
     """
-    def __init__(self, items):
+    def __init__(self, items: dict):
         """ Sets up the Inventory.
             Input is a dictionary with item names as key and quantity as values.
         """
         self.items = items
 
-    def add(self, item, quantity=1):
+    def sort(self):
+        """ Sorts the items in the inventory alphabetically (ASCII order)
+        """
+        sorted_tuple = sorted(self.items.items(), key=lambda x: x[0])
+        self.items = dict(sorted_tuple)
+
+    def add(self, item: Ingredient, quantity=1):
         """ Adds an item to the inventory.
             Requires item name (string) and quantity (int).
             If quantity not provided, it assumes a default value of 1.
         """
-        if item in self.items:
-            self.items[item] += quantity
+        if item.title in self.items:
+            self.items[item.title] += quantity
         else:
-            self.items[item] = quantity
+            self.items[item.title] = quantity
 
-    def remove(self, item, quantity=1):
+        # Sort after adding new item
+        self.sort()
+
+    def remove(self, item: Ingredient, quantity=1):
         """ Removes an item from the inventory.
             Requires item name (string) and quantity (int).
             If quantity not provided, it assumes a default value of 1.
         """
-        if item in self.items:
-            if self.items[item] < quantity:
-                self.items[item] = 0
+        if item.title in self.items:
+            if self.items[item.title] < quantity:
+                self.items[item.title] = 0
             else:
-                self.items[item] -= quantity
+                self.items[item.title] -= quantity
 
-    def has(self, item):
+    def has(self, item: str):
         """ Checks if a particular item is in the inventory.
         """
         if item in self.items and self.items[item] != 0:
@@ -48,6 +59,47 @@ class Inventory(object):
         """
         for item in self.items:
             print("{item} - {quantity}".format(item=item, quantity=self.items[item]))
+
+
+def load_inventory_from_file():
+    """ Loads the inventory from inventory.txt file.
+        Created only for demonstration purposes.
+        Not compatible with other files and hence redundant.
+    """
+    # Open the file
+    file = open('inventory.txt')
+    lines = file.readlines()
+    items = {}
+
+    # Add items from the file
+    for line in lines:
+        line = line.strip('\n')
+        line = line.split('\t')
+        item = Ingredient(title=line[0])
+        items[item] = int(line[1])
+    inventory = Inventory(items)
+    inventory.sort()
+
+    # Close the file
+    file.close()
+
+    return inventory
+
+
+def write_inventory_to_file(inventory: Inventory):
+    """ Writes the contents in inventory to inventory.txt file.
+        Created only for demonstration purposes.
+        Not compatible with other files and hence redundant.
+    """
+    # Opening the file
+    file = open('inventory.txt', 'w')
+
+    # Writing items
+    for item in inventory.items:
+        file.write("{name}\t{quantity}\n".format(name=item, quantity=inventory.items[item]))
+
+    # Closing the file
+    file.close()
 
 
 def load_inventory():
@@ -78,4 +130,3 @@ def load_inventory():
     inventory.remove(ingredients.lotus_head, 2)
 
     return inventory
-

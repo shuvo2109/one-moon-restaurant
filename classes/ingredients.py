@@ -3,7 +3,7 @@
 class Ingredient(object):
     """ Class for ingredients, used in defining inventory and recipes.
     """
-    def __init__(self, title, description=''):
+    def __init__(self, title: str, description=''):
         """ Sets up an Ingredient.
             Requires a title and a description.
             Both has to be strings.
