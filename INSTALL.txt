@@ -3,6 +3,8 @@
 ## Libraries and Modules
 The following Python modules are needed for the execution of repository files:
 - datetime for receipt.py
+- json for receipt.py
+- os for receipt.py
 
 All the other libraries and modules are included in the repository.
 

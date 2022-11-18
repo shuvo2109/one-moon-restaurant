@@ -1,5 +1,5 @@
 def refine_input(prompt='', type_=None, min_=None, max_=None, range_=None):
-    """ Used for cleaning input provided by the user
+    """ Used for sanitizing input provided by the user
     """
     str_not_valid_input = "That is not a valid input. "
     while True:
@@ -30,3 +30,15 @@ def refine_input(prompt='', type_=None, min_=None, max_=None, range_=None):
                         print(str_var_must_be.format(expected))
             else:
                 return variable
+
+
+def str_rjust(value, size=2, padding_char='0') -> str:
+    """ Used for cleaning strings for file naming, etc.
+    """
+    value_str = str(value)
+    if len(value_str) > 2:
+        short = value_str[-2:]
+    else:
+        short = value_str
+
+    return short.rjust(size, padding_char)
